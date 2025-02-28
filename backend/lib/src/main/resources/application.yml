@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:4406/reboot?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 1001
+
+  mybatis:
+    configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+    mapper-locations: classpath:mappers/*.xml
+    type-aliases-package: com.example.domain
+
+  sql:
+    init:
+      mode: always  # 애플리케이션 실행 시 SQL 스크립트 실행 (필요에 따라 변경)
+
+server:
+  port: 8080
