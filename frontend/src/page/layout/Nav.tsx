@@ -38,7 +38,7 @@ const Nav: React.FC<NavProps> = ({
 	/*console.log(" == = Nav 프롭스 관리자 확인 = > ", _managerYn);*/
 	// 세션 userInfo 값 가져오기
 	const getSessionInNav = async () =>{
-		console.log("Nav. getSessionInNav 함수 실행!! 세션값 가져오자~~~ ");
+		/*console.log("Nav. getSessionInNav 함수 실행!! 세션값 가져오자~~~ ");*/
 		const user = await api.getSession();
 		if(user){
 			setUserInfoS(user);

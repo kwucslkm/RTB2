@@ -1,47 +1,67 @@
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as api from "../../service/userService";
 import { User } from '../../types/types';
 
 interface UpdateFormProps {
-  onUpdateSubmit: (id: string , email: string, name:string,managerYn: string) => void; // 로그인 제출 이벤트
-  
+  onUpdateSubmit: (id: string , email: string, name:string, managerYn: string) => void;
 }
-const Mypage: React.FC<UpdateFormProps> = ({onUpdateSubmit}) => {
-	const [user, setUser] = useState<User | null>(null);
-	const [inputValue, setInputValue] = useState<string>("");
-	const [managerYn, setManagerYn] = useState<string>("N");
-	
-	console.log(" == Mypage.tsx");
-	// userInfo 세션 값 가져오기
-	useEffect(()=>{
-		api.getSession().then((userData) => {
-		      setUser(userData);
-		      setInputValue(userData?.username || ""); // user가 로드되면 username 값도 갱신
-			  console.log("세션에서 받아 온 managerYn 1 = > ",userData.managerYn);
-			  setManagerYn(userData.managerYn || "N");
-			  console.log("세션에서 받아 온 managerYn 2 = > ",managerYn);
-		    }).catch((error) => {
-		      console.error("Error user 세션값 조회 실패", error);
-		    });
-		/*getSession().then(setUser).catch(error => {
-			console.error("Error user 세션값 조회 실패", error);
-		});*/
-	},[]);
-	useEffect(() => {
-	    console.log("세션에서 받아 온 managerYn 3 => ", managerYn);
-	  }, [managerYn]);
-	  
-  const handleMyPage = 	(e: React.FormEvent<HTMLFormElement>) => {
+
+const Mypage: React.FC<UpdateFormProps> = ({ onUpdateSubmit }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [managerYn, setManagerYn] = useState<string>("N");
+
+  useEffect(() => {
+    api.getSession()
+      .then((userData) => {
+        setUser(userData);
+        setInputValue(userData?.username || "");
+        setManagerYn(userData.managerYn || "N");
+      })
+      .catch((error) => {
+        console.error("Error: user 세션값 조회 실패", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log("세션에서 받아 온 managerYn => ", managerYn);
+  }, [managerYn]);
+
+  const handleMyPage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-	const inputPw = prompt("<회원 정보 수정 확인>\n 이름 : "+inputValue+"\n 관리자여부 : "+managerYn+ "\n 수정하려는 정보가 맞으면 비밀번호를 입력하세요");
-		if(inputPw === "111" ){
-		    const formData = new FormData(e.currentTarget);
-			const id = user.id
-		    const email = formData.get('userEmail') as string;
-			const name = inputValue
-		    onUpdateSubmit(id, email, name, managerYn);
-		}
-  }
+    if (!user) return;
+
+    const formData = new FormData(e.currentTarget);
+    const id = user.id;
+    const email = formData.get("userEmail") as string;
+    const name = inputValue;
+    const storedPassword = user.password;
+
+    const inputPw = prompt(
+      `<회원 정보 수정 확인>\n 
+	  이름 : ${inputValue}\n 
+	  관리자여부 : ${managerYn}\n 
+	  입력한 정보가 맞으면 비밀번호를 입력하여 수정하세요`
+    );
+    if (!inputPw) {
+      alert("비밀번호 입력이 취소되었습니다.");
+      return;
+    }
+
+    try {
+      const varifyPassRes = await api.varifyPassword(inputPw, storedPassword);
+      console.log("varifyPassRes => ", varifyPassRes);
+
+      if (varifyPassRes) {
+        onUpdateSubmit(id, email, name, managerYn);
+      } else {
+        alert("비밀번호 검증에 실패하였습니다.");
+      }
+    } catch (error) {
+      console.error("비밀번호 검증 실패: ", error);
+    }
+  };
+
   return (
     <div>
 		<h4> </h4>

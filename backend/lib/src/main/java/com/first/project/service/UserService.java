@@ -77,23 +77,24 @@ public class UserService {
 			if(findByEmailResult != null) {
 				String storedPassword = findByEmailResult.getPassword();
 				/* System.out.println("login ismatch result = > "+ismatch); */
-				if(passwordEncoder.matches(user.getPassword(), storedPassword)) return findByEmailResult;
+				if(passVarify(user.getPassword(), storedPassword)) return findByEmailResult;
 				else return null;
 				
 			}else {
 				System.out.println("해당하는 email이 없습니다.");
 				return null;
 			}
-			
-			
 		}catch (DataAccessException e ) {
 			logger.error("SQL 예외발생 : {}", e.getMessage(), e);
 			throw new RuntimeException("로그인 확인 중 오류 발생", e);
 		}
-		
-		
+	}
+	public boolean passVarify(String inputPassword, String storedPassword ) {
+		if(passwordEncoder.matches(inputPassword, storedPassword)) {
+			return true;
+			
+		}else return false;
 		
 	}
-	
 
 }

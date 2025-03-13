@@ -6,6 +6,24 @@ const api = axios.create({
 	withCredentials: true, // ✅ 세션 유지 (쿠키 포함)
 });
 
+//비밀번호 검증
+export const varifyPassword = async (inputPw: string, storedPassword: string) => {
+  try {
+    console.log("비밀번호 검증 시작");
+
+    const response = await api.post("varifyPass", {
+      inputPass: inputPw,
+      storedPass: storedPassword, // 🔥 
+    });
+
+    console.log("비밀번호 검증 response =>", response);
+    return response.data;
+  } catch (error) {
+    console.error("API 비밀번호 검증 실패:", error);
+    alert(`API 비밀번호 검증 실패: ${error.message}`);
+    return false;
+  }
+};
 
 //관리자 확인
 export const findManager = async () => {
@@ -34,7 +52,7 @@ export const logout = async () => {
 };
 // 세션 가져오기 
 export const getSession = async () => {
-    console.log(' = userService.ts rest api try request server session');
+    /*console.log(' = userService.ts rest api try request server session');*/
 	try{
 	  const response = await api.get('/getUserSession');
 	  console.log(" = userService.ts rest api getSession response  = > ",response);
@@ -75,6 +93,8 @@ export const userUpdate = async (
 		console.log("update data from App.tsx = > ", data);
 		try{
 			const response  = await api.post('/update',data);
+			console.log("== api update result ",response);
+			return response;
 		}catch(error){
 			console.log('api 회원정보 수정 error.status',error.status, error);
 			return error.status;

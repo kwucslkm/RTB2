@@ -1,5 +1,6 @@
 package com.first.project.controller;
 
+import com.first.project.entity.PasswordRequest;
 import com.first.project.entity.User;
 import com.first.project.mapper.UserMapper;
 import com.first.project.service.UserService;
@@ -23,6 +24,26 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@PostMapping("varifyPass")
+	/* public boolean varifyPass(@RequestParam String inputPass, @RequestParam String storedPass) {*/
+	public ResponseEntity<Boolean> varifyPass(@RequestBody PasswordRequest request) {
+		System.out.println("비밀번호 검증 "+request.getInputPass()+request.getStoredPass());
+		try {
+      boolean isMatch = userService.passVarify(request.getInputPass(), request.getStoredPass());
+      return ResponseEntity.ok(isMatch);
+  } catch (DataAccessException e) {
+      System.err.println("user controller SQL 예외 발생: " + e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+  }
+	/*
+	 * try { return userService.passVarify(inputPass, storedPass);
+	 * }catch(DataAccessException e) { // SQL 예외 발생 시
+	 * System.err.println("user controller SQL 예외 발생: " + e.getMessage()); return
+	 * false;
+	 */
+		
+		
+	}
 	@GetMapping("/logout")
 	public boolean logout(HttpSession session) {
 		System.out.println("logout connect");
@@ -60,7 +81,6 @@ public class UserController {
 	}
 	@PostMapping("/login")
 	public User login(@RequestBody User user, HttpSession session) {
-		/* System.out.println("login connect"); */
 		try {
 			User loginUserInfo = userService.loginCheck(user);
 			if (loginUserInfo != null) {
@@ -80,11 +100,13 @@ public class UserController {
 	}
 
 	@PostMapping("/update")
-	public ResponseEntity<String> updateUser(@RequestBody User user){
+	public ResponseEntity<String> updateUser(@RequestBody User user, HttpSession session){
 		try {
 			int result = userService.updateUser(user);
-			System.out.println("update result ");
+			System.out.println("== update result  = > "+ result);
 			if (result > 0) {
+				session.setAttribute("userInfo", userService.findByEmail(user));
+				
 				return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to updated user");

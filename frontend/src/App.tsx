@@ -44,13 +44,22 @@ const App: React.FC = () => {
 		}
 	}
 	useEffect(() => {
-	    console.log("App.tsx 관리자 확인 = > ", managerYn);
+	    console.log("App.tsx useEffect 관리자 확인 = > ", managerYn);
     }, [managerYn]);
+/*	useEffect(() => {
+	    console.log("App.tsx userInfo 확인 = > ", userInfo);
+	}, [userInfo]);*/
 	
 	const updateMember = async (id:number, email:string,  username:string, managerYn:string) =>{
 		const userUpdateResult = await api.userUpdate({
 			id, email, username, managerYn
 		});
+		if(userUpdateResult){
+			
+			alert("수정되었습니다. ");
+			setUserInfo(api.getSession());
+			setMode("mypage");
+		}
 	};
 	
 	const joinMember = async (email:string, password:string, username:string, managerYn:string) => {
