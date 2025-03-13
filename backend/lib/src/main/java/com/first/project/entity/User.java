@@ -3,6 +3,8 @@ package com.first.project.entity;
 import java.time.LocalDateTime;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 public class User {
@@ -10,5 +12,8 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private LocalDateTime create_At;
+    private String managerYn;
+    private LocalDateTime created_At;
+    private LocalDateTime updated_At;
+		
 }

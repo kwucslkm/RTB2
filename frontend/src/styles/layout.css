@@ -1,0 +1,151 @@
+.header{
+  /* border: 1px solid; */
+  color: yellow;
+  background-color: black;
+}
+.footer {
+  background-color: wheat;
+  color: blueviolet;
+  text-align: center;
+  /* float: left; */
+}
+.nav {
+  background-color: powderblue;
+  margin-bottom : 20px;
+  
+}
+.nav a {
+	color : black;
+	text-decoration : none;
+}
+.nav ul {
+  color: black;
+  text-decoration: none;
+}
+.nav ul {
+  list-style: none;
+}
+.nav li {
+  /* display: inline-block; */
+  padding: 10px;
+}
+.mainCss {
+  text-align: center;
+}
+.login-form, .join-form, .update-form {
+  border : solid green 1px;
+  border-radius: 3px;
+  width: 350px;
+  margin : 1px auto;
+  padding : 15px;
+  text-align: center;
+  
+  justify-content: center;
+}
+.login-form input, .join-form input {
+  border-radius: 2px;
+  /* margin-left : 20px;
+  margin-right : 20px; */
+  float: right;  
+}
+.update-form input {
+	border-radius: 2px;
+	 /* margin-left : 20px; */
+  margin-right : 10px; 
+  float: right;  
+
+}
+
+.login-form button, .join-form button, .update-form button {
+  background-color: lightseagreen;
+  color: white;
+  border : solid 1px lightseagreen;
+  padding : 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.mainCss {
+  border : solid lightgray 1px;
+  width: 600px;
+  margin : 0 auto;
+  border-radius: 3px;
+  /* background-color: antiquewhite; */
+}
+.mainCss .info {
+  border : solid blue 1px;
+  background-color: antiquewhite;
+  border-radius: 3px;
+  width: 400px;
+  margin: 10px auto;
+
+  /* display: flex;
+  justify-content: center; */
+}
+
+#grid .right ,#grid .left {
+  display: flex; /* 각각 내부 요소를 가로로 배치 */
+  gap: 10px; /* 내부 아이템 간 간격 */
+}
+
+#grid{
+  display: grid;
+  grid-template-columns: auto auto; /* 두 개의 열 생성 */
+  justify-content: space-between; /* 열 간격을 양 끝으로 정렬 */
+  align-items: center; /* 수직 정렬 */
+  padding: 0 20px; /* 좌우 여백 */
+}
+.checkbox-large {
+  transform: scale(1.4); /* 체크박스 크기 확대 */
+  margin-right: 5px; /* 텍스트와의 간격 */
+}
+
+/* 2025-03-13 게시판 드롭다운 메뉴 관련 CSS */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  /* background-color: white; */
+  border: 1px solid #ccc;
+  display: none; /* 기본적으로 숨김 */
+  min-width: 120px;
+  background-color:white;
+}
+/* .dropdown-menu:hover {
+	background-color:#d5fbf2;
+} */
+
+.dropdown-menu li {
+  padding: 10px;
+  white-space: nowrap;
+   background-color: white;
+  /* background-color:#d5fbf2 */
+}
+.dropdown:hover {
+	background-color:#d5fbf2;
+	
+/* 	background-color:#13dcb0; */
+}
+.dropdown:hover .dropdown-menu {
+  display: block; /* 마우스를 올리면 나타남 */
+  color : yellow;
+  
+}
+/* 2025-03-13 게시판 드롭다운 메뉴 관련 CSS */
