@@ -3,7 +3,7 @@ import * as api from "../../service/userService";
 import { User } from '../../types/types';
 
 interface UpdateFormProps {
-  onUpdateSubmit: (id: string , email: string, name:string, managerYn: string) => void;
+  onUpdateSubmit: (id: number , email: string, name:string, managerYn: string) => void;
 }
 
 const Mypage: React.FC<UpdateFormProps> = ({ onUpdateSubmit }) => {

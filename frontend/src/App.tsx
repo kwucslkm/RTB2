@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
-import axios from "axios";
+// import axios from "axios";
 import * as api from "./service/userService";
 import Nav from './page/layout/Nav.tsx';
 import UserList from './page/control/UserList.tsx';
 import Home from './page/control/Home.tsx';
 import JoinForm from './page/control/JoinForm.tsx';
-import LoginForm from './page/control/Loginform.tsx';
+import LoginForm from './page/control/LoginForm.tsx';
 import Mypage from './page/control/Mypage.tsx';
 
 import BoardList from './page/boardPages/BoardList.tsx';
@@ -15,7 +15,7 @@ const App: React.FC = () => {
 	const [mode, setMode] = useState('home');
 	const [loginYn, setLoginYn] = useState(false);
 	const [managerYn, setManagerYn] = useState(false);
-	const [userInfo, setUserInfo] = useState<User>(null);
+	const [userInfo, setUserInfo] = useState<User | null>(null);
 	const [username, setUsername] = useState("");
 	/*const [upperMenu, setUpperMenu] = useState("App.");*/
 	console.log("===== App.tsx");
@@ -57,7 +57,7 @@ const App: React.FC = () => {
 		if(userUpdateResult){
 			
 			alert("수정되었습니다. ");
-			setUserInfo(api.getSession());
+			setUserInfo(await api.getSession());
 			setMode("mypage");
 		}
 	};
@@ -83,25 +83,25 @@ const App: React.FC = () => {
 	}else if (mode =='mypage'){
 		upperMenu = "#myPage";
 		homeControl = <Mypage onUpdateSubmit = {(_id, _email, _name, _managerYn)=>{
-			const id = _id;
-			const email = _email;
-			const username = _name;
-			const managerYn = _managerYn;
+			// const id = _id;
+			// const email = _email;
+			// const username = _name;
+			// const managerYn = _managerYn;
 			/*console.log(id, email, username, managerYn);*/
 			/*updateMember(id, email, username, managerYn);*/
 			updateMember(_id, _email, _name, _managerYn);
 		}}/>	
 	}else if (mode == 'bd'){
 		upperMenu = "#Board > notice";
-	 	homeControl = <BoardList onBoardListClick = {()=>{
+	  homeControl = <BoardList onBoardListClick = {()=>{
 			
 						}}/>	
 	
-	}else if (mode = 'fbd'){
-		upperMenu = "#Board > freeBoard";
-	 	homeControl = <FreeBoard onFreeBoardListClick = {()=>{
+	// }else if (mode = 'fbd'){
+	// 	upperMenu = "#Board > freeBoard";
+	//  	homeControl = <FreeBoard onFreeBoardListClick = {()=>{
 			
-						}}/>	
+	// 					}}/>	
 			
 	}else if (mode == 'join'){
 		upperMenu = "#Join";
