@@ -66,7 +66,7 @@ public class UserService {
 
 	public User findByEmail(User user) { 
 		// 
-		User result = userMapper.findByEmail(user);
+		User result = userMapper.findByEmail(user.getEmail());
 		return result;
 	}
 

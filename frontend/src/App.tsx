@@ -92,11 +92,17 @@ const App: React.FC = () => {
 			updateMember(_id, _email, _name, _managerYn);
 		}}/>	
 	}else if (mode == 'bd'){
-		upperMenu = "#Board";
+		upperMenu = "#Board > notice";
 	 	homeControl = <BoardList onBoardListClick = {()=>{
 			
 						}}/>	
 	
+	}else if (mode = 'fbd'){
+		upperMenu = "#Board > freeBoard";
+	 	homeControl = <FreeBoard onFreeBoardListClick = {()=>{
+			
+						}}/>	
+			
 	}else if (mode == 'join'){
 		upperMenu = "#Join";
 		homeControl = <JoinForm onsubmitCreate = {(_email, _password, _name, _managerYn)=>{
@@ -151,6 +157,10 @@ const App: React.FC = () => {
 				onBoardListClick = {()=>{
 					setMode('bd');
 				}}
+				onFreeBoardListClick = {()=>{
+					setMode('fbd');
+				}}
+				
 				onMyPageClick = {()=>{
 					setMode('mypage');
 				}}

@@ -9,9 +9,9 @@ import lombok.Setter;
 @Data
 public class User {
     private Long id;
-    private String username;
-    private String password;
     private String email;
+    private String password;
+    private String username;
     private String managerYn;
     private LocalDateTime created_At;
     private LocalDateTime updated_At;

@@ -27,7 +27,7 @@ public class UserController {
 	@PostMapping("varifyPass")
 	/* public boolean varifyPass(@RequestParam String inputPass, @RequestParam String storedPass) {*/
 	public ResponseEntity<Boolean> varifyPass(@RequestBody PasswordRequest request) {
-		System.out.println("비밀번호 검증 "+request.getInputPass()+request.getStoredPass());
+		/* System.out.println("비밀번호 검증 "+ request.getInputPass()+ " "+ request.getStoredPass());*/
 		try {
       boolean isMatch = userService.passVarify(request.getInputPass(), request.getStoredPass());
       return ResponseEntity.ok(isMatch);
@@ -99,14 +99,13 @@ public class UserController {
 		return null;
 	}
 
-	@PostMapping("/update")
+	@PutMapping("/update")
 	public ResponseEntity<String> updateUser(@RequestBody User user, HttpSession session){
 		try {
 			int result = userService.updateUser(user);
 			System.out.println("== update result  = > "+ result);
 			if (result > 0) {
 				session.setAttribute("userInfo", userService.findByEmail(user));
-				
 				return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to updated user");

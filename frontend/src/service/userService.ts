@@ -92,7 +92,7 @@ export const userUpdate = async (
 	data:{id:number, email:string, username:string, managerYn:string})=>{
 		console.log("update data from App.tsx = > ", data);
 		try{
-			const response  = await api.post('/update',data);
+			const response  = await api.put('/update',data);
 			console.log("== api update result ",response);
 			return response;
 		}catch(error){
@@ -100,7 +100,6 @@ export const userUpdate = async (
 			return error.status;
 		}
 	}
-
 
 // 회원가입
 export const joinMemberCreate = async (

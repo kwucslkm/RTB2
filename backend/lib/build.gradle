@@ -11,9 +11,11 @@ targetCompatibility = '17'
 
 repositories {
     mavenCentral()
+    maven { url "https://repo.egovframe.go.kr/maven/public/" }
 }
 
 dependencies {
+	// 스프링 부트와 MyBatis 연동
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -24,7 +26,17 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    
+    // eGovFrame 공통 컴포넌트
+  // implementation("org.egovframe.rte:egovframework-common:4.2.0")
+
+    // MyBatis 연동
+   // implementation("org.egovframe.rte:egovframework-rte-fdl-mybatis:4.2.0")
+
+    // 로그 기능
+    // implementation("org.egovframe.rte:egovframework-rte-fdl-logging:4.2.0")
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()

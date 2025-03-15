@@ -15,6 +15,7 @@ interface NavProps {
   onLogoutClick(): void;
   onHomeClick():void;
   onBoardListClick():void;
+  onFreeBoardListClick():void;
 }
 const Nav: React.FC<NavProps> = ({
   userInfo,
@@ -28,6 +29,7 @@ const Nav: React.FC<NavProps> = ({
   onJoinClick,
   onLogoutClick,
   onBoardListClick,
+  onFreeBoardListClick,
 }) => {
 	const [loginYnS, setLoginYnS] = useState(_loginYn);
 	const [userInfoS, setUserInfoS] = useState<User>(userInfo);
@@ -115,7 +117,7 @@ const Nav: React.FC<NavProps> = ({
 						<li className="dropdown">
 						    <a href="/free" onClick={(e) => {
 						        e.preventDefault();
-						        onBoardListClick();
+						        onFreeBoardListClick();
 						      }}> 자유게시판</a>
 						</li>
 						

@@ -3,7 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.first.project.mapper.UserMapper">
 
- 	<!-- <resultMap id="userResultMap" type="com.first.project.entity.User">
+ 	<resultMap id="userResultMap" type="com.first.project.entity.User">
         <result property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
@@ -12,31 +12,31 @@
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
     </resultMap> 
- 	전체 사용자 조회
+ 	<!-- 전체 사용자 조회 -->
     <select id="findAll" resultType="com.first.project.entity.User">
         SELECT * FROM users
     </select>
 
-    관리자 사용자 조회
+    <!-- 관리자 사용자 조회 -->
     <select id="findManagerUsers" resultType="com.first.project.entity.User">
         SELECT * FROM users WHERE managerYn = 'Y'
     </select>
 
-    사용자 저장
+    <!-- 사용자 저장 -->
     <insert id="save" parameterType="com.first.project.entity.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO users (username, password, email, managerYn)
         VALUES (#{username}, #{password}, #{email}, #{managerYn})
     </insert>
 
-    사용자 업데이트
+    <!-- 사용자 업데이트 -->
     <update id="updateUser" parameterType="com.first.project.entity.User">
         UPDATE users 
         SET username = #{username}, managerYn = #{managerYn} 
         WHERE id = #{id}
     </update>
 
-    이메일로 사용자 조회
+    <!-- 이메일로 사용자 조회 -->
     <select id="findByEmail" parameterType="com.first.project.entity.User" resultType="com.first.project.entity.User">
         SELECT * FROM users WHERE email = #{email}
-    </select> -->
+    </select>
 </mapper>
