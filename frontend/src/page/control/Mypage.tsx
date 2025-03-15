@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import * as api from "../../service/userService";
-import { User } from '../../types/types';
+import { User } from "../../types/types";
 
 interface UpdateFormProps {
-  onUpdateSubmit: (id: number , email: string, name:string, managerYn: string) => void;
+  onUpdateSubmit: (
+    id: number,
+    email: string,
+    name: string,
+    managerYn: string
+  ) => void;
 }
 
 const Mypage: React.FC<UpdateFormProps> = ({ onUpdateSubmit }) => {
@@ -12,7 +17,8 @@ const Mypage: React.FC<UpdateFormProps> = ({ onUpdateSubmit }) => {
   const [managerYn, setManagerYn] = useState<string>("N");
 
   useEffect(() => {
-    api.getSession()
+    api
+      .getSession()
       .then((userData) => {
         setUser(userData);
         setInputValue(userData?.username || "");
@@ -32,16 +38,16 @@ const Mypage: React.FC<UpdateFormProps> = ({ onUpdateSubmit }) => {
     if (!user) return;
 
     const formData = new FormData(e.currentTarget);
-    const id = user.id;
+    const id = user.id ?? 0;
     const email = formData.get("userEmail") as string;
     const name = inputValue;
     const storedPassword = user.password;
 
     const inputPw = prompt(
       `<회원 정보 수정 확인>\n 
-	  이름 : ${inputValue}\n 
-	  관리자여부 : ${managerYn}\n 
-	  입력한 정보가 맞으면 비밀번호를 입력하여 수정하세요`
+	    이름 : ${inputValue}\n 
+	    관리자여부 : ${managerYn}\n 
+	    입력한 정보가 맞으면 비밀번호를 입력하여 수정하세요`
     );
     if (!inputPw) {
       alert("비밀번호 입력이 취소되었습니다.");
@@ -64,34 +70,50 @@ const Mypage: React.FC<UpdateFormProps> = ({ onUpdateSubmit }) => {
 
   return (
     <div>
-		<h4> </h4>
-		{/*<button >수정하기</button>*/}
-		<div>
-	      <div className="update-form">
-	        <h3> Mypage </h3>
-	        <form onSubmit={handleMyPage}>
-			  <p>
-	            Email(이메일):&nbsp;&nbsp;
-	            <input style = {{border: 'none'}} type="text" readOnly name="userEmail" value={user?.email || ""}
-				onChange={(e) => setInputValue(e.target.value)} />&nbsp;
-	          </p>
-			  <p>
-	            name(이름):&nbsp;&nbsp;
-	            <input type="text" name="username" value = {inputValue}
-				onChange={(e) => setInputValue(e.target.value)}/>&nbsp;
-	          </p>
-			  <p style = {{textAlign: 'left' ,marginLeft: '50px'}}>
-	  		  	<label>
-	  	          관리자 여부:&nbsp;&nbsp;&nbsp;&nbsp;
-	  	          <input  className="checkbox-large" 
-				  			type="checkbox" name="managerYn" checked={managerYn === "Y"}
-				  onChange={(e) => setManagerYn(e.target.checked ? "Y" : "N")} />
-	  	        </label>
-	  		  </p>
-	          <button type="submit">수정하기</button>&nbsp;
-	        </form>
-	      </div>
-	    </div>
+      <h4> </h4>
+      {/*<button >수정하기</button>*/}
+      <div>
+        <div className="update-form">
+          <h3> Mypage </h3>
+          <form onSubmit={handleMyPage}>
+            <p>
+              Email(이메일):&nbsp;&nbsp;
+              <input
+                style={{ border: "none" }}
+                type="text"
+                readOnly
+                name="userEmail"
+                value={user?.email || ""}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              &nbsp;
+            </p>
+            <p>
+              name(이름):&nbsp;&nbsp;
+              <input
+                type="text"
+                name="username"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              &nbsp;
+            </p>
+            <p style={{ textAlign: "left", marginLeft: "50px" }}>
+              <label>
+                관리자 여부:&nbsp;&nbsp;&nbsp;&nbsp;
+                <input
+                  className="checkbox-large"
+                  type="checkbox"
+                  name="managerYn"
+                  checked={managerYn === "Y"}
+                  onChange={(e) => setManagerYn(e.target.checked ? "Y" : "N")}
+                />
+              </label>
+            </p>
+            <button type="submit">수정하기</button>&nbsp;
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
